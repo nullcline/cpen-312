@@ -1,0 +1,28 @@
+LIBRARY ieee ;
+USE ieee.std_logic_1164.all ;
+ENTITY upcount IS
+	PORT (
+	R : IN INTEGER RANGE 0 TO 15 ;
+	Clock, Reset, L : IN STD_LOGIC ;
+	Q : BUFFER INTEGER RANGE 0 TO 15;
+	Sec : INTEGER RANGE 0 TO 60;
+	Min: INTEGER RANGE 0 TO 60;
+	Hr: INTEGER RANGE 0 TO 25) ;
+END upcount ;
+ARCHITECTURE Behavior OF upcount IS
+	BEGIN
+		PROCESS ( Clock, Resetn )
+			BEGIN
+			IF Reset = '1' THEN
+				Sec <= 0	;
+				Min <= 0	;
+				Hr <= 0	;
+			ELSIF (Clock'EVENT AND Clock = '0') THEN
+				IF L = '1' THEN
+				Q <= R ;
+				ELSE
+				Q <= Q + 1 ;
+				END IF;
+			END IF;
+	END PROCESS;
+END Behavior;
